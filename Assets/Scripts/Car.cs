@@ -5,7 +5,12 @@ public class Car : MonoBehaviour {
     public List<AxleInfo> axleInfos; // the information about each individual axle
     public float motorTorque = 0; // maximum torque the motor can apply to wheel
     public float steeringAngle = 0; // maximum steer angle the wheel can have
+
+    public Vector3 centerOfMass = Vector3.zero;
         
+    private void Awake() {
+        GetComponent<Rigidbody>().centerOfMass += centerOfMass;
+    }
     public void FixedUpdate()
     {
         foreach (AxleInfo axleInfo in axleInfos) {

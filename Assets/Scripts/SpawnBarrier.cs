@@ -7,16 +7,13 @@ public class SpawnBarrier : MonoBehaviour
     void Start()
     {
         GameObject barrier = barriers[Random.Range(0, barriers.Length)];
-        
-        Collider barrierPlaceCollider = transform.GetChild(
-            Random.Range(0, transform.childCount)
-        ).GetComponent<Collider>();
+        Collider collider = GetComponent<Collider>();
 
-        float x = barrierPlaceCollider.transform.position.x;
-        float z = barrierPlaceCollider.transform.position.z;
-        float offsetX = barrierPlaceCollider.bounds.size.x / 2;
-        float offsetY = barrierPlaceCollider.bounds.size.y / 2;
-        float offsetZ = barrierPlaceCollider.bounds.size.z / 2;
+        float x = collider.transform.position.x;
+        float z = collider.transform.position.z;
+        float offsetX = collider.bounds.size.x / 2;
+        float offsetY = collider.bounds.size.y / 2;
+        float offsetZ = collider.bounds.size.z / 2;
         Quaternion minRot = barrier.GetComponent<Barrier>().minRotation;
         Quaternion maxRot = barrier.GetComponent<Barrier>().maxRotation;
 

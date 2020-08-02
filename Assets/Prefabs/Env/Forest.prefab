@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9044325789791362053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7334303351257168656}
+  - component: {fileID: -3118937594851512769}
+  - component: {fileID: 778397410613659216}
+  m_Layer: 0
+  m_Name: Forest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7334303351257168656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044325789791362053}
+  m_LocalRotation: {x: -0, y: -0.011867944, z: -0, w: 0.9999296}
+  m_LocalPosition: {x: 0.00081452704, y: 0.93712753, z: 0.01727253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3118937594851512769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044325789791362053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0689763d7c4e24f97aa89968ffc82d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementSpacing: 3
+  grassSpacing: 1
+  elements:
+  - density: 8
+    prefabs:
+    - {fileID: 142018, guid: 6c8cf0437420c4b15a993cab8679f343, type: 3}
+    - {fileID: 117604, guid: 8973cbb5d75e6452cb8f5a8c5e489202, type: 3}
+    - {fileID: 166856, guid: f00c526a5717e4ec0a413cc7ea2019ff, type: 3}
+    - {fileID: 115020, guid: 535a74f36bc704dc2bf8e9807dc6aaba, type: 3}
+    - {fileID: 127550, guid: 5caed4dde7dcc4562843c7c42bf71842, type: 3}
+    - {fileID: 136328, guid: 8aa437bb764674516b8ca2acba1af10d, type: 3}
+    - {fileID: 188992, guid: 4d20741e650ec4f3b81818b862204fcc, type: 3}
+  - density: 4
+    prefabs:
+    - {fileID: 110610, guid: fe435ab22ffc94532ab6ea875c45f257, type: 3}
+    - {fileID: 128044, guid: af9427a513d854a14850c4791ec4dd23, type: 3}
+    - {fileID: 108756, guid: 8a7c0041c8a4346009fb55c4ced93d4d, type: 3}
+    - {fileID: 119512, guid: 160b75e7595684db4b5599247e147528, type: 3}
+    - {fileID: 160260, guid: 70c727f6cabda445da1258f384be83a7, type: 3}
+    - {fileID: 121128, guid: a561a90be6f1f4ea0a92a637fbd01489, type: 3}
+    - {fileID: 173434, guid: db70d53864d524789aac0e4c8dbab39a, type: 3}
+    - {fileID: 173434, guid: db70d53864d524789aac0e4c8dbab39a, type: 3}
+    - {fileID: 163546, guid: 8398ed8e08f42483c9a8d09e34a1cd62, type: 3}
+    - {fileID: 129050, guid: 4bb78d1a9d2f440eb95081430cc70fbf, type: 3}
+    - {fileID: 110398, guid: b7f46061cf8db4a57a0688702e509c47, type: 3}
+  grass:
+    density: 8
+    prefabs:
+    - {fileID: 167550, guid: 2dae6b3a8468a4b16b94e14e003d8cd0, type: 3}
+    - {fileID: 114378, guid: 4cc995ae8dea74903a83163017cd8927, type: 3}
+--- !u!65 &778397410613659216
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044325789791362053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -7,31 +7,22 @@ public class RoadController : MonoBehaviour
 {
     public GameObject[] roadsPrefabs;
     public GameObject lastRoad;
+    public Transform lastOutput;
+    public Vector3 lastOutputDir;
     public List<GameObject> roads = new List<GameObject>();
-
-    private int shouldGetHardRoad = 5; // 0 - 10
 
     private void Start() {
         roads.Add(lastRoad);
+        // spawnRoad();
     }
 
     public void spawnRoad() {
-        GameObject nextPrefab = getPrefabs();
-        GameObject nextRoad = PrefabUtility.InstantiatePrefab(
-            nextPrefab
-        ) as GameObject;
-
-        Road road = nextRoad.GetComponent<Road>();
-
-        shouldGetHardRoad = road.inDir == road.outDir ? shouldGetHardRoad + 1 : 0;
+        GameObject nextPrefab = getPrefab();
+        GameObject nextRoad = PrefabUtility.InstantiatePrefab(nextPrefab) as GameObject;
 
         nextRoad.transform.parent = transform;
 
         setNextPosition(nextRoad.gameObject);
-
-        setNextOutDir(nextRoad.gameObject);
-
-        tryFlip(nextRoad.gameObject);
 
         lastRoad = nextRoad;
 
@@ -43,51 +34,53 @@ public class RoadController : MonoBehaviour
         }
     }
 
-    private GameObject getPrefabs() {
+    private GameObject getPrefab() {
         GameObject[] prefabs = roadsPrefabs.Where(filterPrefab).ToArray();
+
+        if (prefabs.Length == 0) {
+            return roadsPrefabs[Random.Range(0, roadsPrefabs.Length)];
+        }
         
         return prefabs[Random.Range(0, prefabs.Length)];
     }
 
     private bool filterPrefab(GameObject go) {
-        Road road = go.GetComponent<Road>();
-        
-        if (road.inDir != road.outDir) {
-            return Random.Range(1, 10) < shouldGetHardRoad; 
-        }
-
-        return true;
+        return go.GetComponent<Road>().frequency > Random.Range(0, 1);
     }
 
     private void setNextPosition(GameObject nextRoad) {
-        Road lastRoadComp = lastRoad.GetComponent<Road>();
-        Vector3 lastOutDir = lastRoadComp.outDir;
-        Vector3 lastBodyPos = lastRoad.transform.position;
-        Vector3 lastBodySize = lastRoadComp.body.GetComponent<Collider>().bounds.size;
         Road nextRoadComp = nextRoad.GetComponent<Road>();
-        Vector3 nextInDir = nextRoad.GetComponent<Road>().inDir;
+        int nextInputIndex = Random.Range(0, nextRoadComp.inputs.Length);
+        // int nextInputIndex = 0;
+        int nextOutputIndex = nextInputIndex == 0 ? 1 : 0;
+        Transform nextInput = nextRoadComp.inputs[nextInputIndex];
+        Transform nextOutput = nextRoadComp.inputs[nextOutputIndex];
+        Vector3 nextInputDir = getDirection(nextInput) * -1;
+        Vector3 nextOutputDir = getDirection(nextOutput);
 
-        nextRoad.transform.position = lastBodyPos + lastOutDir * lastBodySize.z;
-
-        if (lastOutDir != nextInDir) {
-            nextRoad.transform.rotation = Quaternion.Euler(0, Quaternion.FromToRotation(nextInDir, lastOutDir).eulerAngles.y, 0);
+        if (lastOutputDir != nextInputDir) {
+            nextRoad.transform.rotation =
+                Quaternion.Euler(0, 360f - Quaternion.FromToRotation(lastOutputDir, nextInputDir).eulerAngles.y, 0);
         }
+
+        nextRoad.transform.position =
+            transform.TransformPoint(lastOutput.position) +
+            transform.TransformPoint(nextInput.position) * -1;
+
+        lastOutput = nextOutput;
+        lastOutputDir = nextRoad.transform.rotation * nextOutputDir;
     }
 
-    private void setNextOutDir(GameObject nextRoad) {
-        Quaternion nextRot = nextRoad.transform.rotation;
-        Road nextRoadComp = nextRoad.GetComponent<Road>();
+    private Vector3 getDirection(Transform trans) {
+        bool xOrZ = Mathf.Abs(trans.position.x) > Mathf.Abs(trans.position.z);
+        Vector3 axle = xOrZ ? Vector3.right : Vector3.forward;
 
-        nextRoadComp.inDir = nextRot * nextRoadComp.inDir;
-        nextRoadComp.outDir = nextRot * nextRoadComp.outDir;
-    }
-
-    private void tryFlip(GameObject nextRoad) {
-        Road nextRoadComp = nextRoad.GetComponent<Road>();
-
-        if (nextRoadComp.inDir != nextRoadComp.outDir && Random.Range(0, 10) > 5) {
-            nextRoad.transform.rotation *= Quaternion.Euler(0, 90f, 0);
-            nextRoadComp.outDir = nextRoadComp.outDir * -1;
+        if (xOrZ) {
+            axle *= Mathf.Sign(trans.position.x);
+        } else {
+            axle *= Mathf.Sign(trans.position.z);
         }
+
+        return axle;
     }
 }

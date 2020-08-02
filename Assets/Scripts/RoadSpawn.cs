@@ -6,8 +6,8 @@ public class RoadSpawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider) {
         if (canSpawn && collider.gameObject.tag == "Player") {
-            transform.parent.parent.GetComponent<RoadController>().spawnRoad();
             canSpawn = false;
+            FindObjectOfType<RoadController>().spawnRoad();
         }
     }
 }

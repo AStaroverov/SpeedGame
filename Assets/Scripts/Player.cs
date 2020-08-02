@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate() {
-        carComponent.motorTorque = 150 * Input.GetAxis("Vertical");
-        carComponent.steeringAngle = 30 * Input.GetAxis("Horizontal");
+        carComponent.motorTorque = 1500 * Input.GetAxis("Vertical");
+        carComponent.steeringAngle = 20 * Input.GetAxis("Horizontal");
     }
 }
