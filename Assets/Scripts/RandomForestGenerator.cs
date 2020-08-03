@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,16 +15,20 @@ public class RandomForestGenerator : MonoBehaviour {
         Vector3 size = collider.size;
         Vector3 center = transform.position;
 
+        Debug.Log(size); 
+
+        for (float x = center.x - size.x / 2f; x <= center.x + size.x / 2f; x += grassSpacing) {
+            for (float z = center.z - size.z / 2f; z <= center.z + size.z / 2f; z += grassSpacing) {
+                if (grass.CanPlace()) {
+                    Plant(grass.GetRandom(), x, z, transform);
+                }
+            }
+        }
+
         for (float x = center.x - size.x / 2f; x <= center.x + size.x / 2f; x += elementSpacing) {
             for (float z = center.z - size.z / 2f; z <= center.z + size.z / 2f; z += elementSpacing) {
-
                 // For each position, loop through each element...
                 for (int i = 0; i < elements.Length; i++) {
-
-                    if (grass.CanPlace()) {
-                        Plant(grass.GetRandom(), x, z, transform);
-                    }
-
                     // Get the current element.
                     Element element = elements[i];
 
