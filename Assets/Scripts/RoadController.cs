@@ -51,7 +51,6 @@ public class RoadController : MonoBehaviour
     private void setNextPosition(GameObject nextRoad) {
         Road nextRoadComp = nextRoad.GetComponent<Road>();
         int nextInputIndex = Random.Range(0, nextRoadComp.inputs.Length);
-        // int nextInputIndex = 0;
         int nextOutputIndex = nextInputIndex == 0 ? 1 : 0;
         Transform nextInput = nextRoadComp.inputs[nextInputIndex];
         Transform nextOutput = nextRoadComp.inputs[nextOutputIndex];
